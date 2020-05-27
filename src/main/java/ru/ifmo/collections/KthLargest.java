@@ -1,7 +1,8 @@
 package ru.ifmo.collections;
 
-import java.util.ArrayList;
-import java.util.Collections;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Design a class to find the kth largest element in a stream. k is from 1 to numbers.length.
@@ -12,18 +13,29 @@ import java.util.Collections;
  */
 public class KthLargest {
     private int k;
-    private ArrayList<Integer> arrayList = new ArrayList<>();
+    private TreeMap<Integer, Integer> map = new TreeMap<>();
 
     public KthLargest(int k, int[] numbers) {
-        this.k = k - 1;
-        for (int number: numbers) {
-            arrayList.add(number);
+        this.k = k;
+        for (int number: numbers){
+            this.map.put(number, 1);
         }
     }
 
     public int add(int val) {
-        arrayList.add(val);
-        Collections.sort(arrayList, Collections.reverseOrder());
-        return arrayList.get(k);
+        Integer temp = map.get(val);
+        map.put(val, temp != null ? temp + 1 : 1);
+        var tempMap = map.descendingMap();
+        int rest = k;
+        for (Map.Entry<Integer, Integer> entry : tempMap.entrySet()) {
+            for (int i = 0; i < entry.getValue(); i++) {
+                rest--;
+                if (rest == 0) {
+                    return entry.getKey();
+                }
+
+            }
+        }
+        return 0;
     }
 }

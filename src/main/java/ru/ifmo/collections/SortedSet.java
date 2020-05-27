@@ -1,5 +1,6 @@
 package ru.ifmo.collections;
 
+
 import java.util.*;
 
 /**
@@ -35,7 +36,7 @@ public class SortedSet<T> extends AbstractSet<T> {
     }
 
     public List<T> getReversed() {
-        List<T> list = getSorted();
+        List<T> list = new ArrayList<>(elements.keySet());
         Collections.reverse(list);
         return list;
     }

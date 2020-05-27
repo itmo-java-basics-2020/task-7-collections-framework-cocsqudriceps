@@ -20,7 +20,7 @@ public class LruCache<K, V> {
     private LinkedHashMap<K, V> map;
 
     public LruCache(int capacity) {
-        map = new LinkedHashMap<>(capacity + 1, LOAD_FACTOR, true) {
+        map = new LinkedHashMap<>(capacity, LOAD_FACTOR, true) {
             @Override
             protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
                 return size() > capacity;
